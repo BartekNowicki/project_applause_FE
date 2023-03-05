@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-country-selection-form',
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
           </label>
         </div>
       </div>
+      <br>
       <button type="submit">Submit</button>
     </form>
   `,
@@ -20,27 +22,36 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
   export class CountrySelectionFormComponent {
   checkboxForm: FormGroup;
-  checkboxLabels = ['Option 1', 'Option 2', 'Option 3'];
+  checkboxLabels: any[] = [""];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dataService: DataService) {
     this.checkboxForm = this.fb.group({
       checkboxGroup: this.fb.array([]),
     });
-
-    this.checkboxLabels.forEach(() =>
-      this.checkboxGroup.push(this.fb.control(false))
-    );
   }
 
   get checkboxGroup(): FormArray {
     return this.checkboxForm.get('checkboxGroup') as FormArray;
   }
 
+  ngOnInit(): void {
+      this.dataService.getData("countries").subscribe((labels: any) => {
+      this.checkboxLabels = labels;
+
+      this.checkboxLabels.forEach(() =>
+      this.checkboxGroup.push(this.fb.control(false))
+    );
+
+    });
+  }
+
   onSubmit() {
     const selectedOptions = this.checkboxGroup.value
       .map((value: any, index: number) => (value ? this.checkboxLabels[index] : null))
       .filter((value: null) => value !== null);
-
-    console.log('Selected options:', selectedOptions);
+      console.log(selectedOptions);
+      this.dataService.getMatchingTesters({"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}).subscribe((response) => {
+      console.log(response);
+    });
   }
 }
