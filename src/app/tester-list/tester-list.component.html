@@ -14,9 +14,9 @@
               </tr>  
           </thead>  
           <tbody>  
-               <tr *ngFor="let tester of testers | async">  
-                  <td>firstooo {{tester.firstName}}</td>  
-                  <td>{{tester.lastName}}</td>
+               <tr *ngFor="let tester of testersArray">  
+                  <td>{{tester.testerId}}</td>  
+                  <td>{{tester.testerExperience}}</td>
                   
                 </tr>   
           </tbody><br>  

@@ -1,9 +1,11 @@
-export class Tester {
-  testerId: number | undefined;
-  firstName: String | undefined;
-  lastName: String | undefined;
-  country: String | undefined;
-  lastLogin: String | undefined;
+export class TesterView {
   
+  testerId: String | undefined;
+  testerExperience: number | undefined; 
+
+  constructor(id: String, exp: number) {
+    this.testerId = id;
+    this.testerExperience = exp;
+  }
 }
 
