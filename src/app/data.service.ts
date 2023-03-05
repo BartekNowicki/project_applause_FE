@@ -13,15 +13,27 @@ export class DataService {
         'Content-Type': 'application/json'
     })
   };
+  selectedCountriesDevices = {"countries":[""], "devices": [""]};
 
   constructor(private http: HttpClient) { }
 
-  getData(type: String) {
+  getData(type: String) {    
       return this.http.get(`${this.getDataApiUrl}/${type}`);
   }
 
-  getMatchingTesters(payload: any) {
-      return this.http.post(`${this.getMatchingTestersApiUrl}`, payload, this.httpOptions);
+  getMatchingTesters() {
+    const payload = this.selectedCountriesDevices;
+    
+    // return this.http.post(`${this.getMatchingTestersApiUrl}`, payload, this.httpOptions);
+    this.http.post(`${this.getMatchingTestersApiUrl}`, payload, this.httpOptions).subscribe((response) => {
+      console.log(response);
+    });
   }
 }
 
+
+//{"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}
+
+//   this.dataService.getMatchingTesters({"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}).subscribe((response) => {
+    //   console.log(response);
+    // });

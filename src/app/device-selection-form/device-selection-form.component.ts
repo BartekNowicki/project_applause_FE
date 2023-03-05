@@ -40,25 +40,23 @@ import { DataService } from '../data.service';
 
       this.checkboxLabels.forEach(() =>
       this.checkboxGroup.push(this.fb.control(false))
-    );
-
-    });
+    )});
   }
 
   onSubmit() {
     const selectedOptions = this.checkboxGroup.value
       .map((value: any, index: number) => (value ? this.checkboxLabels[index] : null))
       .filter((value: null) => value !== null);
-      console.log(selectedOptions);
-      this.dataService.getMatchingTesters({"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}).subscribe((response) => {
-      console.log(response);
-    });
+      
+      this.dataService.selectedCountriesDevices.devices.length = 0;
+
+      for (const option of selectedOptions) {
+        this.dataService.selectedCountriesDevices.devices.includes(option) 
+        ? {} 
+        : this.dataService.selectedCountriesDevices.devices.push(option);
+      }
+       this.dataService.selectedCountriesDevices.devices = this.dataService.selectedCountriesDevices.devices.filter(i => i !== "" );
+       
+      this.dataService.getMatchingTesters();
   }
 }
-
-//{"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}
-
-
-// .subscribe((response) => {
-//       console.log(response);
-//     });
