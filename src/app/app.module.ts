@@ -8,12 +8,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import  {DataTablesModule} from 'angular-datatables';  
-import { TesterListComponent } from './tester-list/tester-list.component';  
+import { TesterListComponent } from './tester-list/tester-list.component';
+import { CountrySelectionFormComponent } from './country-selection-form/country-selection-form.component';
+import { DeviceSelectionFormComponent } from './device-selection-form/device-selection-form.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TesterListComponent
+    TesterListComponent,
+    CountrySelectionFormComponent,
+    DeviceSelectionFormComponent
   ],
   imports: [
     BrowserModule,
