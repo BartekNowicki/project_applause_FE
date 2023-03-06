@@ -23,13 +23,15 @@ export class DataService {
       return this.http.get(`${this.getDataApiUrl}/${type}`);
   }
 
-  getMatchingTesters() {
+  getMatchingTestersSortedByExperienceDesc() {
     this.matchedTesters.length = 0;
     const payload = this.selectedCountriesDevices;
     
     this.http.post(`${this.getMatchingTestersApiUrl}`, payload, this.httpOptions).subscribe((response) => {
       Object.entries(response).forEach(entry => this.matchedTesters.push(new TesterView(entry[0], entry[1])));
-    });
 
+      this.matchedTesters = this.matchedTesters.sort((a, b) => a.testerExperience && b.testerExperience ? b.testerExperience - a.testerExperience : 0);
+
+    });
   }
 }

@@ -9,22 +9,12 @@ import { TesterView } from '../tester';
   styleUrls: ['./tester-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class TesterListComponent implements OnInit, OnChanges {
+export class TesterListComponent {
   testersArray: TesterView[] = [];
   
   constructor(public dataService: DataService) {}  
   
   dtOptions: DataTables.Settings = {};  
   dtTrigger: Subject<any>= new Subject();  
-     
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(element: SimpleChanges){
-    this.dataService.getData("match").subscribe((testerData: any) => {
-      testerData.forEach((td: any) => {
-        const tv = new TesterView(td.testerId, td.testerId);
-        this.testersArray.push(tv)
-      })});
-  }
+    
 }

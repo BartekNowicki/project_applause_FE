@@ -57,6 +57,6 @@ import { DataService } from '../data.service';
       }
        this.dataService.selectedCountriesDevices.countries = this.dataService.selectedCountriesDevices.countries.filter(i => i !== "" );
       
-      this.dataService.getMatchingTesters();
+      this.dataService.getMatchingTestersSortedByExperienceDesc();
   }
 }
