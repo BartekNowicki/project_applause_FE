@@ -15,7 +15,7 @@ export class DataService {
     })
   };
   selectedCountriesDevices = {"countries":[""], "devices": [""]};
-  matchedTesters = [new TesterView("User", 0)];
+  matchedTesters = [new TesterView(" ", 0)];
 
   constructor(private http: HttpClient) { }
 
