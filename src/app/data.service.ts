@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TesterView } from './tester';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class DataService {
     })
   };
   selectedCountriesDevices = {"countries":[""], "devices": [""]};
-  matchedTesters = [{"user": 0}];
+  matchedTesters = [new TesterView("User", 0)];
 
   constructor(private http: HttpClient) { }
 
@@ -23,18 +24,12 @@ export class DataService {
   }
 
   getMatchingTesters() {
+    this.matchedTesters.length = 0;
     const payload = this.selectedCountriesDevices;
     
-    // return this.http.post(`${this.getMatchingTestersApiUrl}`, payload, this.httpOptions);
     this.http.post(`${this.getMatchingTestersApiUrl}`, payload, this.httpOptions).subscribe((response) => {
-      console.log(response);
+      Object.entries(response).forEach(entry => this.matchedTesters.push(new TesterView(entry[0], entry[1])));
     });
+
   }
 }
-
-
-//{"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}
-
-//   this.dataService.getMatchingTesters({"countries":["US", "JP"], "devices": ["Nexus 4", "iPhone 4"]}).subscribe((response) => {
-    //   console.log(response);
-    // });

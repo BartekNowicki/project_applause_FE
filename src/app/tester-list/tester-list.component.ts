@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnChanges, OnInit } from '@angular/core';  
-import { TesterService } from '../tester.service';  
-import { Observable, Subject } from "rxjs";  
+import { Component, ChangeDetectionStrategy, OnChanges, OnInit, SimpleChanges, Input } from '@angular/core';  
+import { Subject } from "rxjs";  
 import { DataService } from '../data.service'; 
 import { TesterView } from '../tester';
 
@@ -8,32 +7,24 @@ import { TesterView } from '../tester';
   selector: 'app-tester-list',
   templateUrl: './tester-list.component.html',
   styleUrls: ['./tester-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class TesterListComponent implements OnInit {
-
-
-  constructor(private testerservice:TesterService, private dataService: DataService) { }  
+export class TesterListComponent implements OnInit, OnChanges {
+  testersArray: TesterView[] = [];
   
-  testersArray: any[] = [];  
+  constructor(public dataService: DataService) {}  
+  
   dtOptions: DataTables.Settings = {};  
   dtTrigger: Subject<any>= new Subject();  
-  
-  // testers: Observable<Tester[]> | undefined;  
-  // tester : Tester=new Tester();  
-  // testers = [];
-  // deleteMessage=false; 
-  // testerlist:any;  
-  // isupdated = false;      
-  
-  
+     
   ngOnInit(): void {
-      this.dataService.getData("match").subscribe((testerData: any) => {
+  }
+
+  ngOnChanges(element: SimpleChanges){
+    this.dataService.getData("match").subscribe((testerData: any) => {
       testerData.forEach((td: any) => {
         const tv = new TesterView(td.testerId, td.testerId);
-        console.log(tv);
-        this.testersArray.push(tv);
-      })
-    });
+        this.testersArray.push(tv)
+      })});
   }
 }

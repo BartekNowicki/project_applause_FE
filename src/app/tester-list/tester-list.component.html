@@ -14,7 +14,7 @@
               </tr>  
           </thead>  
           <tbody>  
-               <tr *ngFor="let tester of testersArray">  
+                <tr *ngFor="let tester of this.dataService.matchedTesters">
                   <td>{{tester.testerId}}</td>  
                   <td>{{tester.testerExperience}}</td>
                   
